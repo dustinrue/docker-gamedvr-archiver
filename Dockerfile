@@ -12,7 +12,11 @@ ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
 RUN chmod +x /tini
 ADD gamedvr-archiver.php usr/local/bin/gamedvr-archiver.php
 RUN chmod +x usr/local/bin/gamedvr-archiver.php
-RUN mkdir /destination
+VOLUME /destination
+
+ENV GAMERTAG <change me>
+ENV GAMEDVR y
+ENV SCREENSHOTS y
 
 #ENTRYPOINT ["gamedvr-archiver.php"]
 ENTRYPOINT ["/tini", "--", "gamedvr-archiver.php"]

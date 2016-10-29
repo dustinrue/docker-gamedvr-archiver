@@ -3,35 +3,18 @@
   define("OUTPUT_DIR", "destination");
   date_default_timezone_set('Etc/GMT');
 
-  $shortopts = "";
-  $shortopts .= "g:";
-  $shortopts .= "d::";
-  $shortopts .= "s::";
+  $gamertag = getenv("GAMERTAG");
+  $download_clips = (getenv("GAMEDVR") == 'y') ? true:false;
+  $download_screenshots = (getenv("SCREENSHOTS") == 'y') ? true:false;
 
-  $options = getopt($shortopts);
-
-  if (count($options) == 0) {
-    printf("Usage: %s <options>\n\n", $argv[0]);
-    printf("  -g       Your Xbox Gamertag\n");
-    printf("  -d       Download GameDVR clips\n");
-    printf("  -s       Download screenshots\n");
-    printf("\n");
-    exit;
-  }
-
-  $gamertag = (array_key_exists('g', $options)) ? $options['g']:false;
-
-  // php's getopt doesn't deal with -sd or -ds so we handle it here
-  $download_clips = array_key_exists('d', $options) || array_key_exists('s', $options) && $options['s'] == 'd';
-  $download_screenshots = array_key_exists('s', $options) || array_key_exists('d', $options) && $options['d'] == 's';
 
   if (!$gamertag) {
-    printf("Please provide your gamertag with -g\n");
+    printf("Please provide your gamertag with -e GAMERTAG=<gamertag>\n");
     exit;
   }
 
   if (!$download_clips && !$download_screenshots) {
-    printf("Please specify if you want to download clips (-d) and/or screenshots (-s)\n");
+    printf("Please specify if you want to download clips (-e GAMEDVR) and/or screenshots (-e SCREENSHOTS)\n");
     exit;
   }
   
