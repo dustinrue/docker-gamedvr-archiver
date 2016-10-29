@@ -8,8 +8,8 @@
   $download_screenshots = (getenv("SCREENSHOTS") == 'y') ? true:false;
 
 
-  if (!$gamertag) {
-    printf("Please provide your gamertag with -e GAMERTAG=<gamertag>\n");
+  if (!$gamertag || $gamertag == "<change me>") {
+    printf("Please provide your gamertag with -e GAMERTAG=<gamertag> or update your config in Kitematic\n");
     exit;
   }
 
