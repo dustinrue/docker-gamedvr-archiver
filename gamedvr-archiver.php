@@ -9,7 +9,7 @@
 
 
   if (!$gamertag || $gamertag == "<change me>") {
-    printf("Please provide your gamertag with -e GAMERTAG=<gamertag> or update your config in Kitematic\n");
+    printf("Please provide your gamertag with -e GAMERTAG=<gamertag>\n");
     exit;
   }
 
@@ -35,8 +35,8 @@
     return true;
   }
   function download_clips($gamertag) {
-    $gamedvr_url = sprintf("https://xboxrecord.us/gamer/%s/gamedvr/json", urlencode($gamertag));
-    $output_dir = sprintf("%s/GameDVR/%s", OUTPUT_DIR, $gamertag);
+    $gamedvr_url = sprintf("https://api.xboxrecord.us/gameclips/gamertag/%s/", urlencode($gamertag));
+    $output_dir = sprintf("%s/Xbox Game DVR/%s", OUTPUT_DIR, $gamertag);
     $raw_clip_data = json_decode(file_get_contents($gamedvr_url));
 
     if(!$raw_clip_data) {
@@ -95,8 +95,8 @@
   }
 
   function download_screenshots($gamertag) {
-    $screenshots_url = sprintf("https://xboxrecord.us/gamer/%s/screenshots/json", urlencode($gamertag));
-    $output_dir = sprintf("%s/Screenshots/%s", OUTPUT_DIR, $gamertag);
+    $screenshots_url = sprintf("https://api.xboxrecord.us/screenshots/gamertag/%s", urlencode($gamertag));
+    $output_dir = sprintf("%s/Xbox Screenshots/%s", OUTPUT_DIR, $gamertag);
     $raw_screenshot_data = json_decode(file_get_contents($screenshots_url));
   
     $download_queue = 0;
